@@ -1,0 +1,61 @@
+Query 1: Supplier Outstanding Balances
+
+File: 01_supplier_balances.sql
+
+Purpose
+
+Identify suppliers to whom the company owes money and quantify outstanding liabilities.
+
+Tables Used
+
+Purchasing.SupplierTransactions
+
+Logic
+
+Outstanding balances greater than zero are aggregated per supplier to calculate total accounts payable for each supplier.
+
+Insight
+
+The results show that outstanding payables are concentrated among a very small number of suppliers. In this dataset, only two suppliers have non-zero outstanding balances, indicating that most supplier obligations have already been settled. This concentration suggests limited exposure to widespread payable risk but highlights dependency on a small subset of suppliers for unpaid obligations.
+
+Query 2: Accounts Payable Aging
+
+File: 02_ap_aging.sql
+
+Purpose
+
+Classify outstanding supplier liabilities based on how long they have remained unpaid.
+
+Tables Used
+
+Purchasing.SupplierTransactions
+
+Logic
+
+Outstanding balances are grouped into aging buckets (0–30, 31–60, 61–90, and 90+ days) based on the number of days since the transaction date.
+
+Insight
+
+All outstanding supplier balances fall into the 90+ days aging bucket. This indicates that although the number of unpaid supplier transactions is small, the remaining balances are relatively old. Such a pattern may reflect extended payment terms with specific suppliers or delayed settlement of a limited number of obligations rather than a general liquidity issue.
+
+Query 3: Days Payable Outstanding (DPO)
+
+File: 03_dpo.sql
+
+Purpose
+
+Estimate the average number of days the company takes to pay its suppliers.
+
+Tables Used
+
+Purchasing.SupplierTransactions
+
+Logic
+
+DPO is approximated using the formula:
+(Total Accounts Payable / Total Purchases) × PeriodDays.
+Due to the historical nature of the WideWorldImporters dataset, the calculation uses an AsOfDate equal to the maximum transaction date rather than the current system date.
+
+Insight
+
+The calculated DPO is approximately 1.7 days, indicating very fast supplier payments relative to total purchase volume. This low DPO is influenced by the characteristics of the sample dataset, where purchase volumes are high and outstanding payables are minimal. In a real-world context, such a low DPO would suggest strong liquidity and prompt supplier settlement, though it may also indicate limited use of supplier credit to optimize working capital.
