@@ -1,83 +1,20 @@
-Cash Flow Analysis
-Query 1: Customer Cash Transactions
-File: 01_customer_cash_transactions.sql
+تحلیل جریان نقدی (Cash Flow Analysis)
+هدف (Purpose)
 
-Purpose:
-Analyze cash-related transactions recorded for customers.
+هدف این بخش، تحلیل جریان نقدی شرکت از طریق شناسایی ورود وجه نقد از مشتریان و خروج وجه نقد بابت پرداخت به تأمین‌کنندگان می‌باشد. در این تحلیل، وضعیت نهایی جریان نقدی خالص نیز به‌منظور ارزیابی کلی نقدینگی مورد بررسی قرار گرفته است.
 
-Tables Used:
+منابع داده (Data Sources)
 
-Sales.CustomerTransactions
-Logic:
-The query retrieves transaction dates and transaction amounts for all customer-related financial transactions.
+این تحلیل بر اساس داده‌های تراکنشی مربوط به مشتریان و تأمین‌کنندگان در پایگاه داده‌ی WideWorldImporters انجام شده است. جداول مرتبط با تراکنش‌های فروش و خرید به‌عنوان منابع اصلی داده مورد استفاده قرار گرفته‌اند.
 
-Insight:
-(To be completed after full cash flow analysis)
+مراحل تحلیل (Analysis Steps)
 
-Query 2: Supplier Cash Transactions
-File: 02_supplier_cash_transactions.sql
+در این بخش، جریان‌های ورودی و خروجی وجه نقد به‌صورت جداگانه تحلیل شده‌اند تا از تفسیر صحیح علامت تراکنش‌ها (مثبت و منفی) اطمینان حاصل شود. سپس، تجمیع ماهانه جریان نقدی و محاسبه مجموع ورود و خروج وجه نقد انجام شده است تا هم امکان تحلیل تفصیلی و هم پشتیبانی از خروجی‌های سطح داشبورد فراهم گردد.
 
-Purpose:
-Analyze cash-related transactions recorded for suppliers, representing cash outflows from the company.
+یافته‌های کلیدی (Key Findings)
 
-Tables Used:
+نتایج تحلیل نشان می‌دهد که خروج وجه نقد بابت پرداخت به تأمین‌کنندگان به‌طور قابل‌توجهی بیش از ورود وجه نقد از مشتریان بوده است. این موضوع منجر به شکل‌گیری جریان نقدی خالص منفی در دوره‌ی مورد بررسی شده و اهمیت مدیریت کارآمد نقدینگی را برجسته می‌سازد.
 
-Purchasing.SupplierTransactions
-Logic:
-The query retrieves transaction dates and transaction amounts for all supplier-related financial transactions.
+محدودیت‌ها (Limitations)
 
-Insight:
-(To be completed after combining with customer cash flow analysis)
-
-Query 3: Transaction Sign Analysis
-File: 03_cash_flow_sign_analysis.sql
-
-Purpose:
-Identify whether financial transactions are recorded as positive or negative values in order to correctly distinguish cash inflows and outflows.
-
-Tables Used:
-
-Sales.CustomerTransactions
-Purchasing.SupplierTransactions
-Logic:
-Transactions are grouped based on the sign of TransactionAmount (positive or negative).
-This allows separation of inflows and outflows before constructing the cash flow statement.
-
-Insight:
-The presence of both positive and negative values indicates that transaction direction must be interpreted carefully rather than assuming all records represent cash inflow or outflow.
-
-Query 4: Monthly Cash Flow Statement
-File: 04_monthly_cash_flow_statement.sql
-
-Purpose:
-Generate a month-by-month cash flow statement to track inflows, outflows, and net cash flow over time.
-
-Tables Used:
-
-Sales.CustomerTransactions
-Purchasing.SupplierTransactions
-Logic:
-Transactions are grouped by month (MonthStart).
-Positive TransactionAmount values are treated as inflows, and negative values are treated as outflows (converted to positive for reporting).
-Customer and supplier monthly summaries are combined using a FULL OUTER JOIN to ensure all months are included.
-
-Insight:
-(To be completed after reviewing the trend: identify months with negative net cash flow and overall cash flow behavior.)
-
-Query 5: Cash Flow Totals and Net Position
-File: 05_cash_flow_totals.sql
-
-Purpose:
-Summarize total cash inflows, total cash outflows, and overall net cash flow for the company.
-
-Tables Used:
-
-Sales.CustomerTransactions
-Purchasing.SupplierTransactions
-Logic:
-Positive TransactionAmount values are treated as cash inflows.
-Negative TransactionAmount values are converted to positive values and treated as cash outflows.
-Totals are aggregated to compute the company’s net cash position.
-
-Insight:
-This summary provides a high-level view of the company’s liquidity position and is suitable for KPI cards and executive reporting.
+این تحلیل بر اساس ساختار و محدودیت‌های مجموعه داده‌ی نمونه WideWorldImporters انجام شده است و لزوماً بیانگر یک صورت جریان نقدی کامل در دنیای واقعی نمی‌باشد. نتایج باید با در نظر گرفتن ماهیت آموزشی و نمونه‌ای داده‌ها تفسیر شوند.
